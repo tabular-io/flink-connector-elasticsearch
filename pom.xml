@@ -44,13 +44,12 @@ under the License.
 
 	<modules>
 		<module>flink-connector-elasticsearch-base</module>
-		<module>flink-connector-elasticsearch6</module>
 		<module>flink-connector-elasticsearch7</module>
 		<module>flink-connector-elasticsearch-e2e-tests</module>
 	</modules>
 
 	<properties>
-		<flink.version>1.16.0</flink.version>
+		<flink.version>1.16.1</flink.version>
 		<flink.shaded.version>15.0</flink.shaded.version>
 
 		<jackson-bom.version>2.13.4.20221013</jackson-bom.version>
@@ -367,7 +366,6 @@ under the License.
 				</property>
 			</activation>
 			<modules>
-				<module>flink-sql-connector-elasticsearch6</module>
 				<module>flink-sql-connector-elasticsearch7</module>
 			</modules>
 		</profile>

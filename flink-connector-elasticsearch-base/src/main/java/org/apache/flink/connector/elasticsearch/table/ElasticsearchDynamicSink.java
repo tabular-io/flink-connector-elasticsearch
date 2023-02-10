@@ -34,7 +34,7 @@ import org.apache.flink.types.RowKind;
 import org.apache.flink.util.StringUtils;
 
 import org.apache.http.HttpHost;
-import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.xcontent.XContentType;
 
 import javax.annotation.Nullable;
 

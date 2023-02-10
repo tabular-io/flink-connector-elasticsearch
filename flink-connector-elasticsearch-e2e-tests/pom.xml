@@ -35,7 +35,6 @@ under the License.
 
 	<modules>
 		<module>flink-connector-elasticsearch-e2e-tests-common</module>
-		<module>flink-connector-elasticsearch6-e2e-tests</module>
 		<module>flink-connector-elasticsearch7-e2e-tests</module>
     </modules>
 
