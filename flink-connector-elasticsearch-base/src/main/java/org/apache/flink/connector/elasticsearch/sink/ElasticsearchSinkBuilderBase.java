@@ -26,6 +26,7 @@ import org.apache.flink.util.InstantiationUtil;
 
 import org.apache.http.HttpHost;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,6 +58,8 @@ public abstract class ElasticsearchSinkBuilderBase<
     private Integer connectionTimeout;
     private Integer connectionRequestTimeout;
     private Integer socketTimeout;
+    private Boolean compressionEnabled;
+    private Duration keepAliveDuration;
 
     protected ElasticsearchSinkBuilderBase() {}
 
@@ -258,6 +261,29 @@ public abstract class ElasticsearchSinkBuilderBase<
         return self();
     }
 
+    /**
+     * Enables or disables compression.
+     *
+     * @param enabled compression
+     * @return this builder
+     */
+    public B setCompressionEnabled(boolean enabled) {
+        this.compressionEnabled = enabled;
+        return self();
+    }
+
+    /**
+     * Sets the keep-alive duration for the connection.
+     *
+     * @param duration for the keep-alive
+     * @return this builder
+     */
+    public B setKeepAliveDuration(Duration duration) {
+        checkState(duration != null, "Keep alive duration must not be null.");
+        this.keepAliveDuration = duration;
+        return self();
+    }
+
     protected abstract BulkProcessorBuilderFactory getBulkProcessorBuilderFactory();
 
     /**
@@ -294,7 +320,9 @@ public abstract class ElasticsearchSinkBuilderBase<
                 connectionPathPrefix,
                 connectionRequestTimeout,
                 connectionTimeout,
-                socketTimeout);
+                socketTimeout,
+                compressionEnabled,
+                keepAliveDuration);
     }
 
     private BulkProcessorConfig buildBulkProcessorConfig() {

@@ -21,6 +21,7 @@ package org.apache.flink.connector.elasticsearch.sink;
 import javax.annotation.Nullable;
 
 import java.io.Serializable;
+import java.time.Duration;
 
 class NetworkClientConfig implements Serializable {
 
@@ -30,6 +31,8 @@ class NetworkClientConfig implements Serializable {
     @Nullable private final Integer connectionRequestTimeout;
     @Nullable private final Integer connectionTimeout;
     @Nullable private final Integer socketTimeout;
+    @Nullable private final Boolean compressionEnabled;
+    @Nullable private final Duration keepAliveDuration;
 
     NetworkClientConfig(
             @Nullable String username,
@@ -37,13 +40,17 @@ class NetworkClientConfig implements Serializable {
             @Nullable String connectionPathPrefix,
             @Nullable Integer connectionRequestTimeout,
             @Nullable Integer connectionTimeout,
-            @Nullable Integer socketTimeout) {
+            @Nullable Integer socketTimeout,
+            @Nullable Boolean compressionEnabled,
+            @Nullable Duration keepAliveDuration) {
         this.username = username;
         this.password = password;
         this.connectionPathPrefix = connectionPathPrefix;
         this.connectionRequestTimeout = connectionRequestTimeout;
         this.connectionTimeout = connectionTimeout;
         this.socketTimeout = socketTimeout;
+        this.compressionEnabled = compressionEnabled;
+        this.keepAliveDuration = keepAliveDuration;
     }
 
     @Nullable
@@ -74,5 +81,15 @@ class NetworkClientConfig implements Serializable {
     @Nullable
     public String getConnectionPathPrefix() {
         return connectionPathPrefix;
+    }
+
+    @Nullable
+    public Boolean getCompressionEnabled() {
+        return compressionEnabled;
+    }
+
+    @Nullable
+    public Duration getKeepAliveDuration() {
+        return keepAliveDuration;
     }
 }

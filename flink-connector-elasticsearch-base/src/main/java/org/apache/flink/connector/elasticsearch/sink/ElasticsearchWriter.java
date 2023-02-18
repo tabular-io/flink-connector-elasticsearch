@@ -164,8 +164,18 @@ class ElasticsearchWriter<IN> implements SinkWriter<IN> {
                     new UsernamePasswordCredentials(
                             networkClientConfig.getUsername(), networkClientConfig.getPassword()));
             builder.setHttpClientConfigCallback(
-                    httpClientBuilder ->
-                            httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider));
+                    httpClientBuilder -> {
+                        httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+                        if (networkClientConfig.getKeepAliveDuration() != null) {
+                            httpClientBuilder.setKeepAliveStrategy(
+                                    (response, context) ->
+                                            networkClientConfig.getKeepAliveDuration().toMillis());
+                        }
+                        return httpClientBuilder;
+                    });
+        }
+        if (networkClientConfig.getCompressionEnabled() != null) {
+            builder.setCompressionEnabled(networkClientConfig.getCompressionEnabled());
         }
         if (networkClientConfig.getConnectionRequestTimeout() != null
                 || networkClientConfig.getConnectionTimeout() != null
